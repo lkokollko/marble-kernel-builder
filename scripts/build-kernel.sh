@@ -108,7 +108,21 @@ fi
 if [[ "${ENABLE_SUSFS}" == "true" ]]; then
   scripts/config --file "${OUT_DIR}/.config" -e KSU_SUSFS
 fi
-
+# Ativar suporte a wlan1 / NetHunter (Wi-Fi USB externo e Packet Injection)
+scripts/config --file "${OUT_DIR}/.config" \
+  -e CFG80211 \
+  -e CFG80211_WEXT \
+  -e MAC80211 \
+  -e MAC80211_MESH \
+  -e USB_NET_DRIVERS \
+  -e WLAN \
+  -e ATH_CARDS \
+  -e ATH9K_HTC \
+  -e RTL8187 \
+  -e MT7601U \
+  -e MT76x2U \
+  -e RT2X00 \
+  -e RT2800USB
 # Apply selectable Clang LTO for all presets (including gki_fragments / Melt).
 # Default thin is free-runner safe with swap + thinlto job caps; full needs more RAM.
 LTO="${LTO:-thin}"
