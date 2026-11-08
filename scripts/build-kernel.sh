@@ -108,7 +108,8 @@ fi
 if [[ "${ENABLE_SUSFS}" == "true" ]]; then
   scripts/config --file "${OUT_DIR}/.config" -e KSU_SUSFS
 fi
-# Ativar suporte a wlan1 / NetHunter (Wi-Fi USB externo e Packet Injection)
+
+# Ativar suporte a Wi-Fi / NetHunter (Wi-Fi USB externo e Packet Injection)
 scripts/config --file "${OUT_DIR}/.config" \
   -e CFG80211 \
   -e CFG80211_WEXT \
@@ -119,11 +120,19 @@ scripts/config --file "${OUT_DIR}/.config" \
   -e ATH_CARDS \
   -e ATH9K_HTC \
   -e RTL8187 \
-  -e MT7601U \
-  -e MT76x2U \
+  -e RT73USB \
+  -e RT76x2U \
   -e RT2X00 \
-  -e RT2800USB
-# Apply selectable Clang LTO for all presets (including gki_fragments / Melt).
+  -e RT2800USB \
+  -e BT \
+  -e BT_RFCOMM \
+  -e BT_BNEP \
+  -e BT_HIDP \
+  -e BT_HCIVHCI \
+  -e BT_HCIBTUSB \
+  -e USB_CONFIGFS_F_HID
+  
+
 # Default thin is free-runner safe with swap + thinlto job caps; full needs more RAM.
 LTO="${LTO:-thin}"
 echo "Applying LTO mode: ${LTO}" | tee -a "${RELEASE_DIR}/build.log"
